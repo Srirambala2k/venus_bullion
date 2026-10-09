@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /image/
+Disallow: /video/
+
+Sitemap: https://www.venusbullion.com/sitemap.xml
