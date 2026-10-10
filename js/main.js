@@ -154,10 +154,10 @@
   const nodesG = $('#netNodes'), linesG = $('#netLines');
   if (nodesG) {
     const NS = 'http://www.w3.org/2000/svg', cx = 300, cy = 258, R = 172;
-    const labels = ['Suppliers', 'Buyers', 'Logistics', 'Vaulting', 'Refining'];
+    const labels = ['Sourcing', 'Trading', 'Logistics', 'Refining'];
     const mk = (n, a, p) => { const e = document.createElementNS(NS, n); for (const k in a) e.setAttribute(k, a[k]); (p || nodesG).appendChild(e); return e; };
     labels.forEach((l, i) => {
-      const ang = (-90 + i * 72) * Math.PI / 180, x = cx + R * Math.cos(ang), y = cy + R * Math.sin(ang), c = Math.cos(ang);
+      const ang = (-90 + i * (360 / labels.length)) * Math.PI / 180, x = cx + R * Math.cos(ang), y = cy + R * Math.sin(ang), c = Math.cos(ang);
       mk('path', { d: `M${cx} ${cy} L${x.toFixed(1)} ${y.toFixed(1)}`, class: 'net-line' }, linesG);
       const dot = mk('circle', { r: 3, fill: '#fff3c9' }, linesG);
       const m = mk('animateMotion', { dur: (3.2 + i * .7) + 's', repeatCount: 'indefinite', begin: (i * .5) + 's', path: `M${cx} ${cy} L${x.toFixed(1)} ${y.toFixed(1)}` }, dot);
@@ -392,7 +392,7 @@
 
 
   // scroll-spy: the menu link of the section being read is highlighted (About → Trading → How We Work → Compliance → Network)
-  const spy = [['about', 'a[href="#about"]'], ['trading', 'a[href="#trading"]'], ['process', 'a[href="#process"]'], ['compliance', 'a[href="#compliance"]'], ['network', 'a[href="network.html"]']]
+  const spy = [['about', 'a[href="#about"]'], ['trading', 'a[href="#trading"]'], ['values', 'a[href="#values"]'], ['why', 'a[href="#why"]'], ['network', 'a[href="network.html"]']]
     .map(([id, sel]) => ({ sec: document.getElementById(id), link: $('#menu ' + sel) })).filter(s => s.sec && s.link);
   if (spy.length) {
     let cur = null, spyTick = false;
@@ -437,6 +437,15 @@
     const wrap = document.createElement('div'); wrap.className = 'std-marquee'; stdGrid.parentNode.insertBefore(wrap, stdGrid); wrap.appendChild(stdGrid);
     const originals = $$('.std', stdGrid); originals.forEach(c => { c.classList.remove('rv'); c.classList.add('in'); c.style.removeProperty('--d'); });
     for (let n = 0; n < 3; n++) originals.forEach(c => { const k = c.cloneNode(true); k.setAttribute('aria-hidden', 'true'); stdGrid.appendChild(k); });
+  }
+
+
+  // About: the right-hand photo appears only once assets/img/about-luxury.jpg exists
+  const aPic = $('#aboutPic');
+  if (aPic) {
+    const im = new Image();
+    im.onload = () => { aPic.style.backgroundImage = `url(${aPic.dataset.img})`; aPic.hidden = false; $('#aboutWrap').classList.add('has-pic'); };
+    im.src = aPic.dataset.img;
   }
 
   const yr = $('#yr'); if (yr) yr.textContent = new Date().getFullYear();

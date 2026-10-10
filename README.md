@@ -27,8 +27,7 @@ Pages: `index.html`, `network.html`, `privacy.html`, `404.html`. Languages: EN /
 
 - Text: edit the English text in the HTML, then the French and Arabic lines in `js/i18n.js` (the English text is the key).
   The privacy page is English only.
-- Company details (register number, licence expiry, address, phone) are written directly in the HTML, in `js/i18n.js`
-  and in the structured data in `index.html`. Search for the old value to find every place.
+- Company details (address, phone) are written directly in the HTML, in `js/i18n.js` and in the structured data in `index.html`. Search for the old value to find every place.
 - Photos: see `assets/README.txt` for the file names the pages look for.
 - The intro animation plays once per browser. Open `/?intro=1` to replay it.
 
@@ -36,5 +35,5 @@ Pages: `index.html`, `network.html`, `privacy.html`, `404.html`. Languages: EN /
 
 - Official email address and form endpoint (above).
 - Native-speaker review of the French and Arabic text (`js/i18n.js`) and of `privacy.html` by a legal adviser.
-- Confirm the licence details and the claims on the site are accurate.
+- Confirm the products shown in "Our Products" are real Venus Bullion lines (the images are AI-generated mock-ups with some garbled text).
 - `assets/img/cat-watches.jpg` shows a Rolex-branded dial. Replace it with an unbranded watch image under the same file name.
