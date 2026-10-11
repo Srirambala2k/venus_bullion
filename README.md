@@ -35,6 +35,7 @@ Other hosts: upload the contents of `dist/` to the web root.
 | `formEndpoint` | URL of a form service (e.g. Formspree). Empty = enquiries open WhatsApp instead. If you use a service other than formspree.io, change the host in the `connect-src` part of `_headers` / `.htaccess`. |
 | `whatsapp` | WhatsApp number, digits only. |
 | `heroPhoto` | Set `true` after adding `assets/img/hero-desktop.jpg` and `hero-mobile.jpg`. |
+| `aboutPhoto` | Set `true` after adding `assets/img/about-luxury.jpg` (shown beside the About text). |
 
 ## Changing content
 

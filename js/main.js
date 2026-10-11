@@ -442,7 +442,7 @@
 
   // About: the right-hand photo appears only once assets/img/about-luxury.jpg exists
   const aPic = $('#aboutPic');
-  if (aPic) {
+  if (aPic && (window.VB_CONFIG || {}).aboutPhoto) {
     const im = new Image();
     im.onload = () => { aPic.style.backgroundImage = `url(${aPic.dataset.img})`; aPic.hidden = false; $('#aboutWrap').classList.add('has-pic'); };
     im.src = aPic.dataset.img;
