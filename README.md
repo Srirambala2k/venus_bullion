@@ -3,16 +3,29 @@
 Static site (HTML, CSS, JavaScript). No framework and no server code.
 Pages: `index.html`, `network.html`, `privacy.html`, `404.html`. Languages: EN / FR / AR (switcher in the header).
 
-## Deploy
+## Folder layout
 
-1. `python build.py` (needs Python 3 and Node). This creates **`dist/`**.
-2. Upload the **contents of `dist/`** to the web root of the host. Do not upload the project folder itself:
-   it contains large original videos and unused files that `dist/` leaves out.
-3. Host settings come with the build:
-   - Netlify / Cloudflare Pages: `_headers` is used automatically (security headers + caching).
-   - Apache: `.htaccess` is used automatically (needs mod_headers, mod_expires, mod_deflate).
-   - Other hosts: copy the headers from `_headers` into the host's configuration. Serve over HTTPS.
-4. After launch: submit `https://www.venusbullion.com/sitemap.xml` in Google Search Console.
+```
+index.html network.html privacy.html 404.html   pages
+css/  js/                                       styles and scripts (js/config.js = settings)
+assets/
+  img/  logo/  video/                           everything the website loads (photos, logos, videos)
+  source/                                       full-size originals, NOT uploaded (images/, video/)
+build.py  serve.py                              build tool, local preview
+```
+All photos and videos live under `assets/`. Nothing media-related sits outside it.
+
+## Deploy to Hostinger
+
+1. Run `python build.py`. It creates `dist/` and **`venus-bullion-hostinger.zip`**.
+2. Hostinger hPanel > Websites > File Manager > open `public_html` (delete the default page first).
+3. Upload `venus-bullion-hostinger.zip` to `public_html` and use **Extract** so `index.html` ends up directly in `public_html` (not in a sub-folder).
+4. Turn on the free SSL certificate (hPanel > Security > SSL) and enable "Force HTTPS".
+5. `.htaccess` (included) sets the 404 page, caching, compression and security headers. In Hostinger's File Manager enable "Show hidden files" to see it.
+6. Edit `public_html/js/config.js` directly on the server to set the email / form service later.
+7. After launch: submit `https://www.venusbullion.com/sitemap.xml` in Google Search Console.
+
+Other hosts: upload the contents of `dist/` to the web root.
 
 ## Settings you edit (no rebuild needed): `js/config.js`
 

@@ -10,7 +10,8 @@ import hashlib, os, re, shutil, subprocess, sys
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 DIST = os.path.join(ROOT, 'dist')
-SKIP_ASSETS = {'box.mp4', 'network.mp4', 'README.txt'}          # large originals; web versions are used instead
+SKIP_DIRS = {'source'}                                           # assets/source = full-size originals (not needed on the website)
+SKIP_ASSETS = {'README.txt'}
 PAGES = ['index.html', 'network.html', 'privacy.html', '404.html']
 STATIC = ['robots.txt', 'sitemap.xml', '_headers', '.htaccess']
 
@@ -47,7 +48,8 @@ for page in PAGES:
 for f in STATIC:
     if os.path.exists(os.path.join(ROOT, f)): shutil.copy(os.path.join(ROOT, f), os.path.join(DIST, f))
 
-for dirpath, _, files in os.walk(os.path.join(ROOT, 'assets')):
+for dirpath, dirs, files in os.walk(os.path.join(ROOT, 'assets')):
+    dirs[:] = [d for d in dirs if d not in SKIP_DIRS]
     for f in files:
         if f in SKIP_ASSETS: continue
         rel = os.path.relpath(os.path.join(dirpath, f), ROOT)
@@ -58,3 +60,12 @@ total = sum(os.path.getsize(os.path.join(d, f)) for d, _, fs in os.walk(DIST) fo
 print('dist ready: %.1f MB  | css %s js %s i18n %s' % (total / 1e6, hashes['css/main.css'], hashes['js/main.js'], hashes['js/i18n.js']))
 for f in ['css/main.css', 'js/main.js', 'js/i18n.js']:
     print('  %-12s %6.1f KB (source %6.1f KB)' % (f, os.path.getsize(os.path.join(DIST, f)) / 1024, os.path.getsize(os.path.join(ROOT, f)) / 1024))
+
+# zip of the dist contents (files at the zip root) for uploading through Hostinger's File Manager
+import zipfile
+zp = os.path.join(ROOT, 'venus-bullion-hostinger.zip')
+with zipfile.ZipFile(zp, 'w', zipfile.ZIP_DEFLATED) as z:
+    for d, _, fs in os.walk(DIST):
+        for f in fs:
+            full = os.path.join(d, f); z.write(full, os.path.relpath(full, DIST).replace(os.sep, '/'))
+print('zip ready: %s (%.1f MB)' % (os.path.basename(zp), os.path.getsize(zp) / 1e6))
