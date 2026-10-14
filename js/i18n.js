@@ -54,7 +54,7 @@
     'Settlement & Handover': ['Règlement et remise', 'التسوية والتسليم'],
     'Complete settlement, documentation and product handover through the agreed channel.': ['Finaliser le règlement, la documentation et la remise du produit par le canal convenu.', 'إتمام التسوية والمستندات وتسليم المنتج عبر القناة المتفق عليها.'],
     // ---- compliance
-    'Professional by design.': ['Professionnel par conception.', 'احترافية في التصميم.'],
+    'Our Commitment Goes Beyond Gold.': ['Notre engagement va au-delà de l’or.', 'التزامنا يتجاوز الذهب.'],
     // ---- network preview
     'Business Network': ['Réseau d’affaires', 'شبكة الأعمال'],
     'Built for connected precious-metals trade.': ['Conçu pour un négoce de métaux précieux connecté.', 'مصمم لتجارة معادن ثمينة مترابطة.'],
